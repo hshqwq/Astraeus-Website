@@ -1,0 +1,37 @@
+[
+  {
+    "id": "1",
+    "type": "announcement",
+    "date": "2024 // 7 / 7",
+    "title": "【Vestar】新版本更新",
+    "content": "Vestar新版本更新啦！快来看看吧！"
+  },
+  {
+    "id": "2",
+    "type": "announcement",
+    "date": "2024 // 7 / 7",
+    "title": "【Vestar】新版本更新",
+    "content": "Vestar新版本更新啦！快来看看吧！"
+  },
+  {
+    "id": "3",
+    "type": "activity",
+    "date": "2024 // 7 / 7",
+    "title": "【Vestar】新版本活动",
+    "content": "Vestar新版本活动啦！快来看看吧！"
+  },
+  {
+    "id": "4",
+    "type": "announcement",
+    "date": "2024 // 7 / 7",
+    "title": "【Vestar】新版本活动",
+    "content": "Vestar新版本活动啦！快来看看吧！"
+  },
+  {
+    "id": "5",
+    "type": "news",
+    "date": "2024 // 7 / 7",
+    "title": "【Vestar】新版本资讯",
+    "content": "Vestar新版本更新啦！快来看看吧！"
+  }
+]

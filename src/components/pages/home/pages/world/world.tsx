@@ -2,7 +2,7 @@ import Star from '../../../../star/star';
 import styles from './world.module.scss';
 
 import Page from "../../../../../../src-old/components/screen-scroll/page";
-import mergeClassName from "../../../../../scripts/util/merge-class-name";
+import mergeClass from "../../../../../scripts/util/merge-class-name";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
@@ -64,7 +64,7 @@ export default function WorldPage() {
         {/* 立绘 */}
         <div className="absolute left-0 bottom-0 h-5/6" onClick={() => updateDialog(spriteInfo?.dialogs)}>
             <Image
-                className={mergeClassName("w-fit max-w-full h-full object-cover object-center", styles.sprite)}
+                className={mergeClass("w-fit max-w-full h-full object-cover object-center", styles.sprite)}
                 src={publicUse(spriteInfo?.path || '')}
                 alt="sprite"
                 style={{ WebkitMask: spriteMaskValue, mask: spriteMaskValue }}

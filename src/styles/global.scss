@@ -5,5 +5,6 @@ img {
 .text-box {
   border-top: 1px solid;
   border-bottom: 1px solid;
+  border-image: linear-gradient(to right, #fdcca600 0%, #fdcca6 15%, #fdcca6 85%, #fdcca600 100%) 1;
   background-image: linear-gradient(to right, #3a3a6600 0%, #3a3a66 15%, #3a3a66 85%, #3a3a6600 100%);
 }

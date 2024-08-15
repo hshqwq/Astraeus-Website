@@ -37,5 +37,5 @@ export default function TypeText(props: ITypeTextProps) {
     else props.onStartType?.(target());
   });
 
-  return type();
+  return <>{type()}</>;
 }

@@ -1,30 +1,61 @@
+import mergeClass from "@/scripts/util/merge-class-name";
 import range from "@/scripts/util/range";
 import { debounce } from "lodash";
-import { children, createEffect, createMemo, createSignal, JSXElement, onMount } from "solid-js";
+import {
+  Accessor,
+  children,
+  createEffect,
+  createMemo,
+  createSignal,
+  JSXElement,
+  onMount,
+} from "solid-js";
 import { useEventListener } from "solidjs-use";
-export default function Fullpage(props: { page?: number; children?: JSXElement }) {
+
+export type FullpageProps = {
+  /**
+   * @description 起始 Page
+   */
+  page?: number;
+  children?: JSXElement | ((page: Accessor<number>) => JSXElement);
+};
+
+export type PageInfo = {
+  name?: string;
+  height: string;
+};
+
+export default function Fullpage(props: FullpageProps) {
   let transformRef!: HTMLDivElement;
   let containerRef!: HTMLDivElement;
 
-  const [heights, setHeights] = createSignal<string[]>([]);
-  const resolved = children(() => props.children);
+  const [pages, setPages] = createSignal<PageInfo[]>([]);
   const [pageCount, setPageCount] = createSignal<number>(1);
+  const [page, setPage] = createSignal<number>(range(props.page || 1, 1, pageCount()));
+  const resolved = children(() =>
+    props.children instanceof Function ? props.children(page) : props.children,
+  );
   createEffect(() => {
     const children = resolved.toArray() as HTMLElement[];
 
     const pages = children.filter((child) => child?.dataset["fullpage"] === "page");
     setPageCount(pages.length);
-    setHeights(pages.map((child) => child?.dataset["height"] ?? ""));
+    setPages(
+      pages.map((child) => ({
+        name: child.dataset["name"],
+        height: child.dataset["height"] ?? "",
+      })),
+    );
   });
 
-  const [page, setPage] = createSignal<number>(range(props.page || 1, 1, pageCount()));
   const nextPage = () => setPage((prev) => range(prev + 1, 1, pageCount()));
   const lastPage = () => setPage((prev) => range(prev - 1, 1, pageCount()));
 
   const translateY = createMemo(
     () =>
-      heights()
-        .slice(0, page() - 1)
+      pages()
+        .slice(1, page())
+        .map((p) => p.height)
         .join(" - ") || "0px",
   );
 
@@ -87,25 +118,33 @@ export default function Fullpage(props: { page?: number; children?: JSXElement }
   });
 
   return (
-    <div ref={containerRef} class="w-dvw h-dvh overflow-hidden z-50 pointer-events-auto">
+    <div ref={containerRef} class="w-dvw h-dvh overflow-hidden">
       <div
         ref={transformRef}
         class="h-auto transition-transform duration-500 ease-in-out"
         style={{ transform: `translateY(calc(0px - ${translateY()}))` }}
       >
-        {props.children}
+        {resolved()}
       </div>
     </div>
   );
 }
 
-export function Page(props: { height?: string; children?: JSXElement }) {
+export type PageProps = {
+  height?: string;
+  class?: string;
+  name?: string;
+  children?: JSXElement;
+};
+
+export function Page(props: PageProps) {
   const height = () => props.height || "100dvh";
   return (
     <div
+      data-name={props.name}
       data-fullpage="page"
       data-height={height()}
-      class="relative w-auto h-auto"
+      class={mergeClass("relative w-auto h-auto", props.class)}
       style={{ height: height() }}
     >
       {props.children}

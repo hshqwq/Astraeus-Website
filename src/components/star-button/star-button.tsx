@@ -1,5 +1,5 @@
 import Star from "../star/star";
-import mergeClassName from "../../../src/scripts/util/merge-class-name";
+import mergeClass from "../../../src/scripts/util/merge-class-name";
 import { JSX, JSXElement, Show } from "solid-js";
 
 export type IStarButtonProps = {
@@ -17,8 +17,8 @@ export default function StarButton(props: IStarButtonProps) {
     >
       <Show when={props.icon}>
         <Star
-          class={"bg-secondary"}
-          rootClass={mergeClassName(
+          class={"bg-secondary shadow-sm"}
+          rootClass={mergeClass(
             "absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center",
             props.size,
           )}

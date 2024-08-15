@@ -1,6 +1,6 @@
 import styles from './page.module.scss';
 
-import mergeClassName from '../../../src/scripts/util/merge-class-name';
+import mergeClass from '../../../src/scripts/util/merge-class-name';
 import {PropsWithChildren} from 'react';
 
 export type IPageProps = PropsWithChildren<{
@@ -9,5 +9,5 @@ export type IPageProps = PropsWithChildren<{
 
 export default function Page({children, className}: IPageProps) {
 
-    return <div className={mergeClassName('w-full h-d-screen overflow-hidden' , className)}>{children}</div>;
+    return <div className={mergeClass('w-full h-d-screen overflow-hidden' , className)}>{children}</div>;
 }
